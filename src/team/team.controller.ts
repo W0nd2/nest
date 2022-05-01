@@ -1,7 +1,9 @@
-import { Body, Controller, HttpException, HttpStatus, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { User } from 'src/users/user-extends';
 import { Users } from 'src/users/users.model';
+import { AllMembers } from './dto/all-members.dto';
+import { ChangeTeam } from './dto/change-team.dto';
 import { JoinTeam } from './dto/join-team.dto';
 import { TeamMembers } from './dto/team-members.dto';
 import { TeamService } from './team.service';
@@ -28,7 +30,7 @@ export class TeamController {
 
     // ОТМЕНА ЗАЯВКИ НА ВСТУПЛНЕНИЕ В КОМАНДУ ПОЛЬЗОВАТИЛЕМ
     @UseGuards(AuthGuard)
-    @Post('/declineQueue')
+    @Delete('/declineQueue')
     async declineQueue(@User() user: Users){
         const id = user.id
         try {
@@ -41,17 +43,18 @@ export class TeamController {
     }
 
     // Переход в другую каманду
-    // async changeComand(req: express.Request, res: express.Response, next: express.NextFunction){
-    //     try {
-    //         const id = req.user.id
-    //         const{comandId} = req.body
-    //         let queue = await teamService.changeComand(id, comandId)
-    //         return res.json(queue)
-    //     } catch (error) {
-    //         console.log(error)
-    //         return ApiError.internal(error);
-    //     }
-    // }
+    @UseGuards(AuthGuard)
+    @Post('/memberToAnotherTeam')
+    async changeComand(@User() user: Users, @Body() changeTeam:ChangeTeam){
+        const id = user.id;
+        try {
+            let queue = await this.teamService.changeComand(id, Number(changeTeam.comandId));
+            return queue;
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(`${error}`,HttpStatus.BAD_REQUEST);
+        }
+    }
 
     //ИНФОРМАЦИЯ ПРО ИГРОКОВ В ОДНОЙ КОМАНДЕ
     @UseGuards(AuthGuard)
@@ -67,25 +70,29 @@ export class TeamController {
     }
 
     // ВСЕ УЧАСНИКИ С ДВУХ КОМАНД
-    // async allMembers(req: express.Request, res: express.Response, next: express.NextFunction){
+    @UseGuards(AuthGuard)
+    @Get('/allMembers')
+    async allMembers(@Query() query:AllMembers){
+        try {
+            let teams = await this.teamService.allMembers(Number(query.userLimit), Number(query.offsetStart))
+            return teams
+        } catch (error) {
+            console.log(error)
+            throw new HttpException(`${error}`,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // @UseGuards(AuthGuard)
+    // @Get('/membersOncomand')
+    // async getmembers(){
     //     try {
     //         const {userLimit, offsetStart} = req.query;
-    //         let teams = await teamService.allMembers(Number(userLimit), Number(offsetStart))
-    //         return res.json(teams)
+    //         const {id} = req.body;
+    //         const members = await this.adminService.getmembers(id,Number(userLimit), Number(offsetStart))
+    //         return {members,total:members.length}
     //     } catch (error) {
-    //         console.log(error)
-    //         return ApiError.internal(error);
-    //     }
-    // }
-
-    // async getMember(req: express.Request, res: express.Response, next: express.NextFunction){
-    //     try {
-    //         let userId = req.user.id
-    //         let teams = await teamService.getMember(userId)
-    //         return res.json({teams})
-    //     } catch (error) {
-    //         console.log(error)
-    //         return ApiError.internal(error);
+    //         console.log(error);
+    //         throw new HttpException(`${error}`,HttpStatus.BAD_REQUEST);
     //     }
     // }
 }

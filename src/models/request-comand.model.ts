@@ -1,4 +1,5 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { Users } from "src/users/users.model";
 import { Comand } from "./comand.model";
 
 interface requestComandAtributes{
@@ -14,6 +15,7 @@ export class RequestComand extends Model<RequestComand,requestComandAtributes>{
     @Column({type: DataType.INTEGER, primaryKey: true, autoIncrement: true})
     id:number;
 
+    @ForeignKey(()=>Users)
     @Column({type: DataType.INTEGER})
     userId:number;
 
@@ -29,4 +31,7 @@ export class RequestComand extends Model<RequestComand,requestComandAtributes>{
 
     @BelongsTo(()=>Comand)
     comand:Comand;
+
+    @BelongsTo(()=>Users)
+    user:Users;
 }

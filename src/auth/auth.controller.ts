@@ -11,7 +11,6 @@ export class AuthController {
     constructor(private authService: AuthService) {}
 
     @Post("/registration")
-    @UsePipes(ValidationPipe)
     @HttpCode(HttpStatus.CREATED)
     async registration(@Body() userDto:CreateUserDto){
         let message = await this.authService.registretion(userDto)

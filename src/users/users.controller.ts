@@ -1,5 +1,7 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Patch, Post, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Request } from 'express';
+import { FileService } from 'src/file/file.service';
 import { AuthGuard } from '../guards/auth.guard';
 import { changeLoginDto } from './dto/changeLogin.dto';
 import { changePasswordDto } from './dto/changePassword.dto';
@@ -12,24 +14,31 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
 
-    constructor(private userService: UsersService){}
+    constructor(
+        private userService: UsersService,
+        private fileService: FileService
+    ){}
 
-    @UseGuards(AuthGuard)
     @Post('/password/change')
     async changePassword(@Body() changePasswordDto:changePasswordDto){
         try {
-            let message = await this.userService.changePassword(changePasswordDto.email)
-            return message
+            let message = await this.userService.changePassword(changePasswordDto.email);
+            return message;
         } catch (error) {
             console.log(error)
             throw new HttpException(`${error}`,HttpStatus.BAD_REQUEST);
         }
     }
 
-    @UseGuards(AuthGuard)
     @Patch('/password')
     async forgotPassword(@Body() forgotPasswordDto:forgotPasswordDto){
-
+        try {
+            let message = await this.userService.forgotPassword(forgotPasswordDto.password, forgotPasswordDto.token);
+            return message;
+        } catch (error) {
+            console.log(error)
+            throw new HttpException(`${error}`,HttpStatus.BAD_REQUEST);
+        }
     }
 
     @UseGuards(AuthGuard)
@@ -68,6 +77,14 @@ export class UsersController {
 
     @UseGuards(AuthGuard)
     @Patch('/avatar/change')
-    async changeAvatar(){
+    @UseInterceptors(FileInterceptor('avatar'))
+    async changeAvatar(
+        @User() user: Users,
+        @UploadedFile() avatar,
+        
+    ){
+        let fileName = await this.fileService.uploadFile(avatar);
+        let newUser = await this.userService.changeAvatar(user.id,fileName)
+        return newUser
     }
 }

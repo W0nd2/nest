@@ -11,9 +11,18 @@ import { TeamModule } from './team/team.module';
 import { Comand } from "./models/comand.model";
 import { RequestComand } from "./models/request-comand.model";
 import { UserComand } from "./models/user-comand.model";
+import { AdminModule } from './admin/admin.module';
+import { BlockModule } from './block/block.module';
+import { FileModule } from './file/file.module';
+import { ServeStaticModule } from "@nestjs/serve-static";
+import { MailModule } from './mail/mail.module';
+import * as path from "path";
 
 @Module({
     imports: [
+        ServeStaticModule.forRoot({
+          rootPath: path.resolve(__dirname,'static'),
+        }),
         ConfigModule.forRoot({
             envFilePath: '.env'
         }),
@@ -38,7 +47,11 @@ import { UserComand } from "./models/user-comand.model";
         }),
         UsersModule,
         AuthModule,
-        TeamModule
+        TeamModule,
+        AdminModule,
+        BlockModule,
+        FileModule,
+        MailModule
       ],
 })
 export class AppModule{}
