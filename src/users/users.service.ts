@@ -5,6 +5,7 @@ import { Users } from './users.model';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from 'src/mail/mail.service';
+import { Token } from 'src/models/token.model';
 
 @Injectable()
 export class UsersService {
@@ -54,6 +55,10 @@ export class UsersService {
         if(typeof userToken == 'object'){
            id= userToken.id
         }
+        let changeToken = await Token.findOne({where: {userId:id}});
+        if(!changeToken){
+            throw new HttpException('Пользователь не отправлял заявку на смену пароля',HttpStatus.NOT_FOUND);
+        }
         let user = await Users.findOne({ where: { id }})
         if (!user) {
             throw new HttpException('Пользователя с таким ID не существует',HttpStatus.NOT_FOUND);
@@ -61,6 +66,7 @@ export class UsersService {
         const hashPassword = await bcrypt.hash(newPassword, 5);
         user.password = hashPassword;
         user.save();
+        await changeToken.destroy();
         return message;
     }
 

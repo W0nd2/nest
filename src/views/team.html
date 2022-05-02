@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/team.css">
+    
+    <title>Team</title>
+</head>
+
+<body >
+    <!-- HEADER -->
+
+    <div class="header">
+        <div class="header-logo">
+            <a href="index.html">
+                <img class="header-logo_pic" src="./pic/st.jpg" alt="Header logo">
+            </a>
+        </div>
+        <div class="header-title">
+            <ul class="header-title-txt">
+                <li class="header-title_registratin"><a href="registration.html"> Registration</a> </li>
+                <li class="header-title_login"><a href="login.html">Login</a></li>
+                <li class="header-title_managers"><a href="managers.html">Managers</a></li>
+                <li class="header-title_queue"><a href="queue.html">Queue</a></li>
+                <li class="header-title_profile"><a href="profile.html"> Profile </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BODY -->
+
+    <div id="body">
+        <div>
+            <input id="comandId" placeholder="comandId">
+            <button onclick="teamMembers()">Получить участников</button>
+        </div>
+        <span> Ваша команда состоит из таких членов: </span>
+        <div id="team">
+            <!-- тут будет список пользователей которые состоят в команде -->
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="./scripts/team.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/index.css">
+    <title>Strikeball</title>
+</head>
+
+<body onload="allMembers()">
+    <!-- HEADER -->
+
+    <div class="header">
+        <div class="header-logo">
+            <a href="index.html">
+                <img class="header-logo_pic" src="./pic/st.jpg" alt="Header logo">
+            </a>
+        </div>
+        <div class="header-title">
+            <ul class="header-title-txt">
+                <li class="header-title_registratin"><a href="registration.html"> Registration</a> </li>
+                <li class="header-title_login"><a href="login.html">Login</a></li>
+                <li class="header-title_managers"><a href="managers.html">Managers</a></li>
+                <li class="header-title_queue"><a href="queue.html">Queue</a></li>
+                <li class="header-title_team"><a href="team.html">Team</a></li>
+                <li class="header-title_profile"><a href="profile.html"> Profile </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BODY -->
+
+    <div class="body">
+        <div id="comands">
+            <div id='firstComand'>
+                <span id='firstComand-name'>Команда № 1</span>
+                <div id='firstComand-members'>
+
+                </div>
+                <button class="comand-button" onclick="joinTeam(1)">Присоедениться к команде</button>
+            </div>
+            <div id='secondComand'>
+                <span id='secondComand-name'>Команда № 2</span>
+                <div id='secondComand-members'>
+
+                </div>
+                <button class="comand-button" onclick="joinTeam(2)">Присоедениться к команде</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <script src="./scripts/index.js"></script>
+   
+    </script>
+</body>
+
+</html>

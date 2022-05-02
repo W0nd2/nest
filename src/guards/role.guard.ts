@@ -9,7 +9,7 @@ export class RoleGuard implements CanActivate{
     constructor(
         private jwtService: JwtService,
         private reflector: Reflector
-    ) { }
+    ) {}
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         try {
@@ -17,13 +17,11 @@ export class RoleGuard implements CanActivate{
                 context.getHandler(),
                 context.getClass(),
             ])
-            console.log(requiredRoles);
             const req = context.switchToHttp().getRequest();
             const token = req.headers.authorization.split(' ')[1];
             if(!token){
                 throw new UnauthorizedException({messahe:'Пользователь не прошел авторизацию'});
             }
-            
             let user = this.jwtService.verify(token);
             req.users = user;
             return requiredRoles.includes(user.role);

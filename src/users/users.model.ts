@@ -4,6 +4,7 @@ import { Banlist } from "src/models/banlist.model";
 import { Roles } from "../models/roles.model";
 import { UserComand } from "../models/user-comand.model";
 import { Comand } from "src/models/comand.model";
+import { Token } from "src/models/token.model";
 
 interface UserAtributes{
     id:number;
@@ -54,4 +55,7 @@ export class Users extends Model<Users,UserAtributes>{
 
     @BelongsToMany(()=> Comand, ()=> UserComand)
     comands: Comand[];
+
+    @HasOne(()=>Token)
+    token:Token;
 }

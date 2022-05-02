@@ -17,6 +17,8 @@ import { FileModule } from './file/file.module';
 import { ServeStaticModule } from "@nestjs/serve-static";
 import { MailModule } from './mail/mail.module';
 import * as path from "path";
+import { Token } from "./models/token.model";
+import { SocketGateway } from "./socket/socket.gateway";
 
 @Module({
     imports: [
@@ -40,7 +42,8 @@ import * as path from "path";
             RequestComand,
             Roles,
             UserComand,
-            Users
+            Token,
+            Users,
           ],
           autoLoadModels:true,
           logging:false
@@ -53,5 +56,6 @@ import * as path from "path";
         FileModule,
         MailModule
       ],
+      providers:[SocketGateway]
 })
 export class AppModule{}

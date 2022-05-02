@@ -9,5 +9,5 @@ export class CreateUserDto {
     @IsString({message:"Формат должен быть строкой"})
     @Length(5,20,{message:"Пароль должен быть от 5 до 20 символов"})
     readonly password:string;
-    readonly roleId:number;
+    readonly role:number;
 }

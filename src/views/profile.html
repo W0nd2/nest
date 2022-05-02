@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./styles/profile.css">
+    
+    <!-- <link rel="stylesheet" href="./profile.css"> -->
+    <title>User profile</title>
+</head>
+<body onload="checkProfile()">
+    <!-- HEADER -->
+
+    <div class="header">
+        <div class="header-logo" >
+            <a href="index.html">
+            <img class="header-logo_pic" src="./pic/st.jpg" alt="Header logo">
+            </a>
+        </div>
+        <div class="header-title">
+            <ul class="header-title-txt">
+                <li class="header-title_registratin" ><a href="registration.html"> Registration</a> </li>
+                <li class="header-title_login"><a href="login.html">Login</a></li>
+                <li class="header-title_managers"><a href="managers.html">Managers</a></li>
+                <li class="header-title_queue"><a href="queue.html">Queue</a></li>
+                <li class="header-title_team"><a href="team.html">Team</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BODY -->
+
+    <div class="body">
+        <div class="profile">
+            <span id="profile-email">Email:</span>
+            <span id="profile-login">Login:</span>
+            <img id="profile-img" >
+            <div class="profile-change">
+                <div>
+                    <span id="profile-login">New login:</span>
+                    <input type="text" placeholder="Testlogin" id="profile-change-email" >
+                    <button id="profile-button" onclick="changeLogin()">Сменить логин</button>
+                </div>
+                <div>
+                    <span id="profile-avatar">New avatar:</span>
+                    <input type="file" placeholder="Выбирете картинку" id="profile-upload">
+                    <!-- <button id="profile-button" onclick="changeAvatar()">Сменить аватар</button> -->
+                </div>
+                <div>
+                    <span id="profile-password">New password:</span>
+                    <input type="text" placeholder="Testlogin" id="profile-change-password">
+                    <button id="profile-button" onclick="changePassword()">Сменить пароль</button>
+                </div>
+                <button id="profile-logout" onclick="logoutMember()">Выйти с аккаунта</button>
+            </div>
+        </div>
+    
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="./scripts/profile.js"></script>
+</body>
+</html>

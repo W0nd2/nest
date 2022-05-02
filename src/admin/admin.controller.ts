@@ -29,7 +29,12 @@ import { MemberToTeam } from './dto/member-to-team.dto';
 import { Queue } from './dto/queue.dto';
 import { UserById } from './dto/user-by-id.dto';
 
-@Controller('admin')
+enum Access {
+    Manager ='MANAGER',
+    Administrator ='ADMIN'
+}
+
+@Controller('api/admin')
 export class AdminController {
 
     constructor(
@@ -37,7 +42,7 @@ export class AdminController {
         private blockService: BlockService
     ){}
 
-    @Roles("ADMIN")
+    @Roles(Access.Administrator)
     @UseGuards(RoleGuard)
     @Patch('/confirmManager')
     async confirmManager(@Body() body:ConfirmManager){
@@ -50,7 +55,7 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN")
+    @Roles(Access.Administrator)
     @UseGuards(RoleGuard)
     @Patch('/decline')
     async declineManager(@Body() body:DeclineManager){
@@ -63,7 +68,7 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN")
+    @Roles(Access.Administrator)
     @UseGuards(RoleGuard)
     @Get('/managerByID')
     async getManagerById(@Query() query:ManagerById){
@@ -76,7 +81,7 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN")
+    @Roles(Access.Administrator)
     @UseGuards(RoleGuard)
     @Get('/allManagers')
     async getManagers(@Query() query:AllManager){
@@ -90,7 +95,7 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN","MANAGER")
+    @Roles(Access.Administrator,Access.Manager)
     @UseGuards(RoleGuard)
     @Patch('/unblockUser')
     async blockUser(@Body() body:BlockUser){
@@ -103,7 +108,7 @@ export class AdminController {
         }
     }
     
-    @Roles("ADMIN","MANAGER")
+    @Roles(Access.Administrator,Access.Manager)
     @UseGuards(RoleGuard)
     @Get('/userById')
     async getUserById(@Query() query:UserById) {
@@ -116,7 +121,7 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN","MANAGER")
+    @Roles(Access.Administrator,Access.Manager)
     @UseGuards(RoleGuard)
     @Post('/confirmToAnotherTeam')
     async confirmToAnotherTeam(@Body() body:MemberToAnTeam){
@@ -129,7 +134,7 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN","MANAGER")
+    @Roles(Access.Administrator,Access.Manager)
     @UseGuards(RoleGuard)
     @Post('/declineToAnotherTeam')
     async declineToAnotherTeam(@Body() body:DeclineToAnotherTeam){
@@ -146,7 +151,7 @@ export class AdminController {
     
 
     // ПОЛУЧИТЬ ВСЕХ УЧАСНИКОВ КОТОРЫЕ ОТПРАВИЛИ ЗАЯВКИ
-    @Roles("ADMIN","MANAGER")
+    @Roles(Access.Administrator,Access.Manager)
     @UseGuards(RoleGuard)
     @Get('/queue')
     async getqueue(@Query() query:Queue)
@@ -160,7 +165,7 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN","MANAGER")
+    @Roles(Access.Administrator,Access.Manager)
     @UseGuards(RoleGuard)
     @Delete('/deleteUserFromTeam')
     async deleteUserFromTeam(@Body() body:DeleteUserFromTeam){
@@ -173,7 +178,7 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN","MANAGER")
+    @Roles(Access.Administrator,Access.Manager)
     @UseGuards(RoleGuard)
     @Patch('/memberToTeam')
     async memberToTeam(@Body() body:MemberToTeam){
@@ -186,16 +191,16 @@ export class AdminController {
         }
     }
 
-    @Roles("ADMIN","MANAGER")
-    @UseGuards(RoleGuard)
-    @Patch('/memberToTeam')
-    async getMember(@Body() body:GetMember){
-        try {
-            let teams = await this.adminService.getMember(Number(body.userId));
-            return teams;
-        } catch (error) {
-            console.log(error)
-            throw new HttpException(`${error}`,HttpStatus.BAD_REQUEST);
-        }
-    }
+    // @Roles(Access.Administrator,Access.Manager)
+    // @UseGuards(RoleGuard)
+    // @Patch('/memberToTeam')
+    // async getMember(@Body() body:GetMember){
+        // try {
+            // let teams = await this.adminService.getMember(Number(body.userId));
+            // return teams;
+        // } catch (error) {
+            // console.log(error)
+            // throw new HttpException(`${error}`,HttpStatus.BAD_REQUEST);
+        // }
+    // }
 }

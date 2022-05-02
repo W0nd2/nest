@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/registration.css">
+    <title>Registration</title>
+</head>
+<body>
+    <!-- HEADER -->
+
+    <div class="header">
+        <div class="header-logo" >
+            <a href="index.html">
+            <img class="header-logo_pic" src="./pic/st.jpg" alt="Header logo">
+            </a>
+        </div>
+        <div class="header-title">
+            <ul class="header-title-txt">
+                <li class="header-title_login"><a href="login.html">Login</a></li>
+                <li class="header-title_managers"><a href="managers.html">Managers</a></li>
+                <li class="header-title_queue"><a href="queue.html">Queue</a></li>
+                <li class="header-title_team"><a href="team.html">Team</a></li>
+                <li class="header-title_profile"><a href="profile.html"> Profile </a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- BODY -->
+
+    <div class="body">
+        <div class="registration">
+            <span class="registration-txt">Email</span>
+            <input id="registration-email" type="text" placeholder="test@test.com">
+            <span class="registration-txt">Password</span>
+            <input id="registration-password" type="password" placeholder="password">
+            <span class="registration-txt">Login</span>
+            <input id="registration-login" type="text" placeholder="password">
+            <button id="registration-button" onclick="userRegistration()">Регистрация</button>
+            <button id="registration-button" onclick="managerRegistration()">Подача заявки на манеджера</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+    </div>
+
+    <!-- SCRIPT -->
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <!-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> -->
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    <script src="./scripts/registration.js"></script>
+</body>
+</html>
