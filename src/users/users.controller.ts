@@ -5,6 +5,7 @@ import {
     Get, 
     HttpException, 
     HttpStatus, 
+    Inject, 
     Patch, 
     Post, 
     Query, 
@@ -15,9 +16,9 @@ import {
     UsePipes
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FileService } from 'src/file/file.service';
-import { ValidationPipe } from 'src/pipes/validation.pipe';
-import { TeamService } from 'src/team/team.service';
+import { FileService } from '../file/file.service';
+import { ValidationPipe } from '../pipes/validation.pipe';
+import { TeamService } from '../team/team.service';
 import { AuthGuard } from '../guards/auth.guard';
 import { AllMembers } from './dto/all-members.dto';
 import { ChangeTeam } from './dto/change-team.dto';
@@ -27,14 +28,16 @@ import { forgotPasswordDto } from './dto/forgotPassword.dto';
 import { JoinTeam } from './dto/join-team.dto';
 import { TeamMembers } from './dto/team-members.dto';
 import { User } from './user-extends';
-import { Users } from './users.model';
+import { Users } from '../models/users.model';
 import { UsersService } from './users.service';
+import { IUsersService } from './users.inteface';
 
 @Controller('api/user')
 export class UsersController {
 
     constructor(
-        private userService: UsersService,
+        @Inject('IUsersService') private userService:IUsersService,
+        //private userService: UsersService,
         private fileService: FileService,
         private teamService: TeamService
     ){}

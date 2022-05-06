@@ -19,7 +19,6 @@ export class SocketGateway implements OnGatewayInit{
 
     @SubscribeMessage('chatToServer')
     sendMessage(@ConnectedSocket() client: Socket, @MessageBody() message:{roomName:string, message: string}): void {
-        console.log(message.roomName, message.message);
         this.socket.emit('chatToClient', message.message);
     }
 

@@ -5,16 +5,18 @@ import {
     Get, 
     HttpException, 
     HttpStatus, 
+    Inject, 
     Patch, 
     Post, 
     Query, 
     UseGuards 
 } from '@nestjs/common';
-import { BlockService } from 'src/block/block.service';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { Roles } from 'src/guards/role.decorator';
-import { RoleGuard } from 'src/guards/role.guard';
-import { User } from 'src/users/user-extends';
+import { BlockService } from '../block/block.service';
+import { AuthGuard } from '../guards/auth.guard';
+import { Roles } from '../guards/role.decorator';
+import { RoleGuard } from '../guards/role.guard';
+import { User } from '../users/user-extends';
+import { IAdminService } from './admin.interface';
 import { AdminService } from './admin.service';
 import { AllManager } from './dto/all-managers.dto';
 import { BlockUser } from './dto/block-user.dto';
@@ -38,7 +40,8 @@ enum Access {
 export class AdminController {
 
     constructor(
-        private adminService: AdminService,
+        @Inject('IAdminService') private adminService:IAdminService,
+        //private adminService: AdminService,
         private blockService: BlockService
     ){}
 
@@ -86,8 +89,7 @@ export class AdminController {
     @Get('/allManagers')
     async getManagers(@Query() query:AllManager){
         try {
-            const roleId = 2
-            let managers = await this.adminService.getManagers(String(roleId),Number(query.userLimit), Number(query.offsetStart));
+            let managers = await this.adminService.getManagers(Number(query.userLimit), Number(query.offsetStart));
             return managers;
         } catch (error) {
             console.log(error);

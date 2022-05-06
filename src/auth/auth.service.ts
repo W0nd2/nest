@@ -1,15 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Users } from 'src/users/users.model';
+import { Users } from '../models/users.model'
 import { CreateUserDto } from './dto/create-user.dto';
 import {LoginUserDto} from './dto/login-user.dto'
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Roles } from 'src/models/roles.model';
-import { Banlist } from 'src/models/banlist.model';
-import { AproveList } from 'src/models/aprove-list.model';
+import { Roles } from '../models/roles.model';
+import { Banlist } from '../models/banlist.model';
+import { AproveList } from '../models/aprove-list.model';
+import { IAuthService } from './auth.interface';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements IAuthService{
     constructor(private jwtService: JwtService) {}
 
     async registretion(dto: CreateUserDto): Promise<string>{

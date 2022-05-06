@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { BlockService } from 'src/block/block.service';
-import { Comand } from 'src/models/comand.model';
-import { RequestComand } from 'src/models/request-comand.model';
-import { UserComand } from 'src/models/user-comand.model';
-import { Users } from 'src/users/users.model';
+import { BlockService } from '../block/block.service';
+import { Comand } from '../models/comand.model';
+import { RequestComand } from '../models/request-comand.model';
+import { UserComand } from '../models/user-comand.model';
+import { Users } from '../models/users.model';
 
 @Injectable()
-export class TeamService {
+export class TeamService{
 
     constructor(private blockService: BlockService){}
 

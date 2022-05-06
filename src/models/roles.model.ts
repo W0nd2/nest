@@ -1,5 +1,5 @@
 import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
-import { Users } from "src/users/users.model";
+import { Users } from "../models/users.model";
 
 interface RolesAtributes{
     id:number;

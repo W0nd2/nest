@@ -1,5 +1,5 @@
 import { BelongsToMany, Column, DataType, HasOne, Model, Table } from "sequelize-typescript";
-import { Users } from "src/users/users.model";
+import { Users } from "../models/users.model";
 import { RequestComand } from "./request-comand.model";
 import { UserComand } from "./user-comand.model";
 

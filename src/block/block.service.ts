@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Banlist } from 'src/models/banlist.model';
-import { Users } from 'src/users/users.model';
+import { Banlist } from '../models/banlist.model';
+import { Users } from '../models/users.model';
 
 @Injectable()
 export class BlockService {

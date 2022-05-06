@@ -1,10 +1,10 @@
 import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from "sequelize-typescript";
 import { AproveList } from "../models/aprove-list.model";
-import { Banlist } from "src/models/banlist.model";
+import { Banlist } from "../models/banlist.model";
 import { Roles } from "../models/roles.model";
 import { UserComand } from "../models/user-comand.model";
-import { Comand } from "src/models/comand.model";
-import { Token } from "src/models/token.model";
+import { Comand } from "../models/comand.model";
+import { Token } from "../models/token.model";
 
 interface UserAtributes{
     id:number;

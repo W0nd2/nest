@@ -1,5 +1,5 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
-import { Users } from "src/users/users.model";
+import { Users } from "../models/users.model";
 import { Comand } from "./comand.model";
 
 interface requestComandAtributes{

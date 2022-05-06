@@ -1,12 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { AproveList } from 'src/models/aprove-list.model';
-import { Comand } from 'src/models/comand.model';
-import { RequestComand } from 'src/models/request-comand.model';
-import { UserComand } from 'src/models/user-comand.model';
-import { Users } from 'src/users/users.model';
+import { AproveList } from '../models/aprove-list.model';
+import { Comand } from '../models/comand.model';
+import { RequestComand } from '../models/request-comand.model';
+import { UserComand } from '../models/user-comand.model';
+import { Users } from '../models/users.model';
+import { IAdminService } from './admin.interface';
 
 @Injectable()
-export class AdminService {
+export class AdminService implements IAdminService{
     async confirmManager(id: number, reason: string):Promise<Users> {
         let user = await Users.findOne({ where: { id },attributes: { exclude: ['password'] }  })
         if (!user) {
@@ -50,9 +51,10 @@ export class AdminService {
         return manager
     }
 
-    async getManagers(roleId: string, userLimit:number, offsetStart:number):Promise<Users[]> {
+    async getManagers(userLimit:number, offsetStart:number):Promise<Users[]> {
         let managers = await Users.findAll({ 
-            where: { roleId },
+            where: { roleId:2 },
+            attributes: { exclude: ['password'] },
             limit: userLimit,
             offset: offsetStart
         })
@@ -64,10 +66,8 @@ export class AdminService {
         if (!user) {
             throw new HttpException('Пользователя с таким ID не существует',HttpStatus.NOT_FOUND);
         }
-        if (user.roleId == 2) {
-            if (!user.managerActive) {
-                throw new HttpException('Администратор ещё не подтвердил заявку на роль MANAGER',HttpStatus.FORBIDDEN);
-            }
+        if (user.roleId == 2 && !user.managerActive) {
+            throw new HttpException('Администратор ещё не подтвердил заявку на роль MANAGER',HttpStatus.FORBIDDEN);
         }
         return user
     }

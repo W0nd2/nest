@@ -1,14 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-//import { CreateUserDto } from './dto/create-user.dto';
-import { Users } from './users.model';
+import { Users } from '../models/users.model';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { MailService } from 'src/mail/mail.service';
-import { Token } from 'src/models/token.model';
+import { MailService } from '../mail/mail.service';
+import { Token } from '../models/token.model';
+import { IUsersService } from './users.inteface';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUsersService{
 
     constructor(
         private jwtService:JwtService,

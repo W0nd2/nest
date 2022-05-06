@@ -1,5 +1,5 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
-import { Users } from "src/users/users.model";
+import { Users } from "../models/users.model";
 
 interface AproveListAtributes{
     id:number;

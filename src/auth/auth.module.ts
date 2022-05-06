@@ -6,7 +6,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { GoogleStrategy } from './google.strategy';
 
 @Module({
-  providers: [AuthService, GoogleStrategy],
+  providers: [
+    AuthService,
+    GoogleStrategy,
+    {
+      provide: 'IAuthService',
+      useClass: AuthService
+    }
+  ],
   controllers: [AuthController],
   exports:[JwtModule],
   imports:[
@@ -16,6 +23,6 @@ import { GoogleStrategy } from './google.strategy';
         expiresIn: '24h'
       }
     })
-  ]
+  ],
 })
 export class AuthModule {}
