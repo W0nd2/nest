@@ -26,7 +26,7 @@ import { SocketGateway } from "./socket/socket.gateway";
           rootPath: path.resolve(__dirname,'static'),
         }),
         ConfigModule.forRoot({
-            envFilePath: '.env'
+            envFilePath: './src/.env'
         }),
         SequelizeModule.forRoot({
           dialect: 'postgres',

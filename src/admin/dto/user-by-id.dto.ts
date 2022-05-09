@@ -1,3 +1,6 @@
+import { IsNumber } from "class-validator";
+
 export class UserById{
-    readonly id:string;
+    @IsNumber({},{message:"Формат должен быть числом"})
+    readonly id:number;
 }

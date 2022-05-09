@@ -1,4 +1,7 @@
+import { IsNumber } from "class-validator";
+
 export class MemberToTeam{
-    readonly reqId: string;
+    @IsNumber({},{message:"Формат должен быть числом"})
+    readonly reqId: number;
     readonly status: string;
 }

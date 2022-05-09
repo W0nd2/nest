@@ -1,4 +1,8 @@
+import { IsNumber } from "class-validator";
+
 export class MemberToAnTeam{
-    readonly userId:string;
-    readonly comandId:string;
+    @IsNumber({},{message:"Формат должен быть числом"})
+    readonly userId:number;
+    @IsNumber({},{message:"Формат должен быть числом"})
+    readonly comandId:number;
 }

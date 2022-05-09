@@ -1,3 +1,6 @@
+import { IsNumber } from "class-validator";
+
 export class DeleteUserFromTeam{
-    readonly userId:string;
+    @IsNumber({},{message:"Формат должен быть числом"})
+    readonly userId:number;
 }

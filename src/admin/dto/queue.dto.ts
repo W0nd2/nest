@@ -1,4 +1,4 @@
 export class Queue{
-    readonly userLimit:string;
-    readonly offsetStart:string;
+    readonly userLimit:number;
+    readonly offsetStart:number;
 }

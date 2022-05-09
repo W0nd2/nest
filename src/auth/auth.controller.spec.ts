@@ -7,9 +7,9 @@ let loginUserDto={
     password: '123456789'
 };
 let createUserDto={
-    email:'newuser@gmail.com',
+    email:'user@gmail.com',
     login:'test',
-    password:'12',
+    password:'123456789',
     role:1
 }
 
@@ -25,18 +25,19 @@ describe('AuthController',()=>{
         app = moduleRef.createNestApplication();
         await app.init();
         httpServer = app.getHttpServer();
-    })
+        await supertest(httpServer).post('/api/auth/registration').send(createUserDto);
+    });
 
     afterAll(async () => {
         await app.close();
-    })
+    });
 
     it('Should login person', async ()=>{
         const response = await supertest(httpServer).post('/api/auth/login').send(loginUserDto);
         expect(response.status).toBe(201);
         expect(response.body).toMatchObject({
             token: expect.any(String)
-        })
+        });
     });
 
     it('Should NOT login person with incorrect email', async ()=>{
@@ -45,7 +46,7 @@ describe('AuthController',()=>{
         expect(response.status).toBe(404);
         expect(response.body).toMatchObject({
             message: 'Пользователь не зареестрирован'
-        })
+        });
     });
 
     it('Should NOT login person with incorrect password', async ()=>{
@@ -55,34 +56,36 @@ describe('AuthController',()=>{
         expect(response.status).toBe(400);
         expect(response.body).toMatchObject({
             message: "Неверный пароль"
-        })
+        });
     });
 
     it('Should NOT register new user with incorrect password', async ()=>{
+        createUserDto.password = '12';
         const response = await supertest(httpServer).post('/api/auth/registration').send(createUserDto);
-        expect(response.status).toBe(400)
-    })
+        expect(response.status).toBe(400);
+    });
 
     it('Should NOT register new user with incorrect login', async ()=>{
         createUserDto.password='123456789';
         createUserDto.login = 't';
         const response = await supertest(httpServer).post('/api/auth/registration').send(createUserDto);
-        expect(response.status).toBe(400)
-    })
+        expect(response.status).toBe(400);
+    });
 
     it('Should NOT register new user with incorrect email', async ()=>{
         createUserDto.email = "test";
         createUserDto.login = 'test';
         const response = await supertest(httpServer).post('/api/auth/registration').send(createUserDto);
-        expect(response.status).toBe(400)
-    })
+        expect(response.status).toBe(400);
+    });
 
     it('Should register new user', async ()=>{
-        createUserDto.email = "newuser@gmail.com";
+        createUserDto.email = "newmanager@gmail.com";
+        createUserDto.role = 2;
         const response = await supertest(httpServer).post('/api/auth/registration').send(createUserDto);
         expect(response.status).toBe(201);
         expect(response.body).toMatchObject({
             message: 'Пользователь успешно зареистрирован'
-        })
-    })
+        });
+    });
 });
