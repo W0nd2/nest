@@ -2,9 +2,10 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as uuid from 'uuid'
+import { IFileService } from './file.interface';
 
 @Injectable()
-export class FileService {
+export class FileService implements IFileService{
 
     async uploadFile(file):Promise<string>{
         try {

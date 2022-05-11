@@ -48,6 +48,7 @@ describe('AuthController',()=>{
             message: 'Пользователь не зареестрирован'
         });
     });
+    
 
     it('Should NOT login person with incorrect password', async ()=>{
         loginUserDto.email = 'user@gmail.com';
